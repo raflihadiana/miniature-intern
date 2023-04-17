@@ -25,13 +25,15 @@ for filename in os.listdir(xlsx_path):
                 data.append([cell.value for cell in row])
             excel_file = pd.DataFrame(data[1:], columns=data[0])
 
+            # Delete the first row
+            excel_file = excel_file.iloc[1:]
+
             # Add week and year columns with user input values
             excel_file.insert(0, 'year', year)
             excel_file.insert(1, 'week', week)
 
             # Modify the data in the dataframe as needed
             print(f"Modifying data in file {file_path}...")
-            excel_file = excel_file.drop(0) # delete the first row
             excel_file = excel_file.replace(to_replace=r'^\d*\.\d*ENULL$', value=' ', regex=True)
             excel_file = excel_file.replace(['#N/A'], ' ')
 
