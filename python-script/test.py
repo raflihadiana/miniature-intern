@@ -22,13 +22,13 @@ for filename in os.listdir(xlsb_path):
         start_time = time.time()
         try:
             workbook = open_xlsb(xlsb_file_path)
-            with Workbook() as wb:
-                for sheetname in workbook.sheets:
-                    worksheet = wb.create_sheet(title=sheetname)
-                    for row in workbook.get_sheet(sheetname):
-                        worksheet.append([cell.v for cell in row])
+            wb = Workbook()
+            for sheetname in workbook.sheets:
+                worksheet = wb.create_sheet(title=sheetname)
+                for row in workbook.get_sheet(sheetname):
+                    worksheet.append([cell.v for cell in row])
 
-                wb.save(xlsx_file_path)
+            wb.save(xlsx_file_path)
 
         except Exception as e:
             print(f"Error converting {xlsb_file_path} to {xlsx_file_path}: {str(e)}")
